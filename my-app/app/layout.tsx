@@ -10,7 +10,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "LegalEase - AI Contract Auditor",
   description:
-    "Scan contracts for hidden risks with AI. Detect missing clauses, protect your privacy, and negotiate with confidence.",
+    "Scan contracts and agreements for hidden risks with AI. Detect missing clauses, protect your privacy, and negotiate with confidence.",
 };
 
 export default function RootLayout({

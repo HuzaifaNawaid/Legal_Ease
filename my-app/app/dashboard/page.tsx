@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Shield, FileText, Terminal, Eye, EyeOff, AlertCircle } from "lucide-react";
+import { Shield, FileText, Terminal, Eye, EyeOff, AlertCircle, Upload, Loader2, FileCode } from "lucide-react";
 import { ScannerOverlay } from "@/components/dashboard/ScannerOverlay";
 import { HealthGauge } from "@/components/dashboard/HealthGauge";
 import { ClauseCard } from "@/components/analysis/ClauseCard";
@@ -28,18 +28,56 @@ export default function Dashboard() {
     const [thoughtIndex, setThoughtIndex] = useState(0);
 
     const [privacyMode, setPrivacyMode] = useState(false);
+    const [isParsing, setIsParsing] = useState(false);
 
-    const startAnalysis = async () => {
-        if (!text.trim()) return;
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setIsParsing(true);
+        setStatus("scanning"); // Show loading UI immediately
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            const res = await fetch("/api/parse", {
+                method: "POST",
+                body: formData,
+            });
+
+            const data = await res.json();
+            if (res.ok && data.text) {
+                setText(data.text);
+                // AUTO-START ANALYSIS IMMEDIATELY
+                startAnalysis(data.text);
+            } else {
+                throw new Error(data.error || "Failed to parse file");
+            }
+        } catch (err: any) {
+            console.error(err);
+            setStatus("error");
+            alert("Error: " + err.message);
+        } finally {
+            setIsParsing(false);
+            e.target.value = "";
+        }
+    };
+
+    const startAnalysis = async (overriddenText?: string) => {
+        const textToProcess = overriddenText || text;
+        if (!textToProcess.trim()) return;
+
         setStatus("scanning");
         setThoughtIndex(0);
         setReport(null);
 
         // Privacy Mode Logic
-        const textToAnalyze = privacyMode ? anonymizeText(text) : text;
+        const textToAnalyze = privacyMode ? anonymizeText(textToProcess) : textToProcess;
 
-        // If privacy mode is on, we update the UI text to show the redaction immediately
-        if (privacyMode) {
+        // If privacy mode is on and we are using overridden text (from file), 
+        // update the UI text to show the redaction
+        if (privacyMode && overriddenText) {
             setText(textToAnalyze);
         }
 
@@ -64,7 +102,7 @@ export default function Dashboard() {
                 clearInterval(thoughtInterval);
                 setReport(data);
                 setStatus("complete");
-            }, 1500);
+            }, 1000);
 
         } catch (e: any) {
             console.error(e);
@@ -112,12 +150,31 @@ export default function Dashboard() {
                     />
 
                     <div className="mt-4 flex justify-between items-center">
-                        <div className="text-xs text-zinc-500">
-                            {/* File upload temporarily disabled */}
+                        <div className="flex items-center gap-4">
+                            <label className={cn(
+                                "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition-all border",
+                                isParsing
+                                    ? "bg-zinc-800 border-zinc-700 text-zinc-500 cursor-not-allowed"
+                                    : "bg-zinc-900 border-zinc-800 text-zinc-300 hover:bg-zinc-800 hover:text-white"
+                            )}>
+                                {isParsing ? (
+                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                ) : (
+                                    <Upload className="w-4 h-4" />
+                                )}
+                                {isParsing ? "PARSING..." : "IMPORT DOCX"}
+                                <input
+                                    type="file"
+                                    className="hidden"
+                                    accept=".docx,.txt"
+                                    onChange={handleFileUpload}
+                                    disabled={isParsing || status === "scanning"}
+                                />
+                            </label>
                         </div>
                         <div className="flex gap-3">
                             <button
-                                onClick={startAnalysis}
+                                onClick={() => startAnalysis()}
                                 disabled={status === "scanning" || !text.trim()}
                                 className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-all shadow-lg shadow-indigo-500/20 active:scale-95 text-sm"
                             >

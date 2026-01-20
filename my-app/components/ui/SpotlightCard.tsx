@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, MouseEvent } from "react";
+import { useRef, MouseEvent } from "react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 
 export const SpotlightCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {

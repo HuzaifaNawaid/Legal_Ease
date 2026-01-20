@@ -4,10 +4,10 @@ import Link from "next/link";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MoveRight, ShieldCheck, FileSearch, Zap, Building2, Briefcase, UserCheck, HelpCircle } from "lucide-react";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { CustomCursor } from "@/components/ui/CustomCursor";
 
 const FAQS = [
   {
@@ -30,12 +30,24 @@ const FAQS = [
 
 const DOMAINS = [
   { icon: Building2, title: "Real Estate", desc: "Leases & Purchase Agreements" },
-  { icon: Briefcase, title: "Freelancers", desc: "Service Contracts & NDAs" },
-  { icon: UserCheck, title: "Startups", desc: "Co-founder & Employment Agreements" },
+  { icon: Briefcase, title: "Freelancers/Content Creators", desc: "Service Contracts & NDAs" },
+  { icon: UserCheck, title: "Startups/Businesses", desc: "Co-founder & Employment Agreements" },
 ];
 
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const containerRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  const scaleProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -51,7 +63,15 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans flex flex-col selection:bg-indigo-500/30">
+    <div ref={containerRef} className="min-h-screen bg-zinc-950 text-zinc-50 font-sans flex flex-col selection:bg-indigo-500/30">
+      <CustomCursor />
+
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-indigo-500 origin-left z-[100]"
+        style={{ scaleX: scaleProgress }}
+      />
+
       <Header />
 
       <main className="flex-1 flex flex-col">
@@ -100,8 +120,8 @@ export default function LandingPage() {
         </section>
 
         {/* Why Choose / Features Grid */}
-        <section className="py-24 bg-zinc-900/30 border-t border-zinc-800/50">
-          <div className="container mx-auto px-6">
+        <section id="features" className="py-24 bg-zinc-900/30 border-t border-zinc-800/50 relative overflow-hidden">
+          <div className="container mx-auto px-6 relative z-10">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4">Why Choose LegalEase?</h2>
               <p className="text-zinc-400">State-of-the-art protection for modern creators.</p>
