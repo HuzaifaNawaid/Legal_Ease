@@ -1,5 +1,13 @@
 import { NextResponse } from "next/server";
 import mammoth from "mammoth";
+import { PDFParse } from "pdf-parse";
+import path from "path";
+import { pathToFileURL } from "url";
+
+// Set the worker source for pdf-parse to avoid "Cannot find module" errors in Next.js
+// On Windows, absolute paths must be converted to file:// URLs for ESM
+const workerPath = path.resolve(process.cwd(), "node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs");
+PDFParse.setWorker(pathToFileURL(workerPath).href);
 
 export async function POST(req: Request) {
     try {
@@ -25,6 +33,22 @@ export async function POST(req: Request) {
             } catch (docxError: any) {
                 console.error("DOCX Parse Error:", docxError);
                 throw new Error("Failed to read Word document.");
+            }
+        }
+        // Handle PDF
+        else if (file.type === "application/pdf" || file.name.endsWith(".pdf")) {
+            try {
+                const parser = new PDFParse({ data: buffer });
+                const result = await parser.getText();
+                await parser.destroy();
+                text = result.text;
+
+                if (!text || text.trim().length === 0) {
+                    throw new Error("PDF seems to be empty or image-only (scanned). OCR is not supported.");
+                }
+            } catch (pdfError: any) {
+                console.error("PDF Parse Error:", pdfError);
+                throw new Error(`Failed to read PDF document: ${pdfError.message || "Unknown PDF parsing error"}`);
             }
         }
         // Fallback for TXT

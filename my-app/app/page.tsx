@@ -29,9 +29,9 @@ const FAQS = [
 ];
 
 const DOMAINS = [
-  { icon: Building2, title: "Real Estate", desc: "Leases & Purchase Agreements" },
-  { icon: Briefcase, title: "Freelancers/Content Creators", desc: "Service Contracts & NDAs" },
-  { icon: UserCheck, title: "Startups/Businesses", desc: "Co-founder & Employment Agreements" },
+  { icon: Building2, title: "Real Estate", desc: "Navigate every Lease and Purchase Agreement with certainty." },
+  { icon: Briefcase, title: "Startups/Businesses", desc: "Structure every Co-founder and Employment Agreement for success." },
+  { icon: UserCheck, title: "Freelancers/Content Creators", desc: "Turn every Service Contract and NDA to your advantage." },
 ];
 
 export default function LandingPage() {

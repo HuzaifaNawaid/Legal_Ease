@@ -123,7 +123,7 @@ export default function Dashboard() {
                 <div className="flex-1 p-6 lg:border-r border-zinc-800 flex flex-col h-[60vh] lg:h-auto overflow-hidden">
                     <div className="flex justify-between items-center mb-3">
                         <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 flex items-center gap-2">
-                            <Terminal className="w-4 h-4" /> Contract Source Code
+                            <Terminal className="w-4 h-4" /> Contract Content
                         </label>
 
                         {/* Privacy Toggle */}
@@ -162,11 +162,11 @@ export default function Dashboard() {
                                 ) : (
                                     <Upload className="w-4 h-4" />
                                 )}
-                                {isParsing ? "PARSING..." : "IMPORT DOCX"}
+                                {isParsing ? "PARSING..." : "IMPORT DOCX/PDF"}
                                 <input
                                     type="file"
                                     className="hidden"
-                                    accept=".docx,.txt"
+                                    accept=".docx,.pdf,.txt"
                                     onChange={handleFileUpload}
                                     disabled={isParsing || status === "scanning"}
                                 />
@@ -236,7 +236,7 @@ export default function Dashboard() {
                                 animate={{ opacity: 1 }}
                                 className="h-full flex items-center justify-center text-red-500"
                             >
-                                Analysis failed. Check console for details.
+                                Analysis failed. Try Again.
                             </motion.div>
                         )}
 
