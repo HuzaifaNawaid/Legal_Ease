@@ -46,15 +46,7 @@ export default function Dashboard() {
                 body: formData,
             });
 
-            const rawText = await res.text();
-            let data;
-
-            try {
-                data = JSON.parse(rawText);
-            } catch (jsonError) {
-                console.error("Non-JSON Response in File Upload:", rawText);
-                throw new Error(`Upload Error (${res.status}): ${rawText.slice(0, 100)}...`);
-            }
+            const data = await res.json();
 
             if (res.ok && data.text) {
                 setText(data.text);
