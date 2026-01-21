@@ -9,8 +9,6 @@ import { pathToFileURL } from "url";
 const workerPath = path.resolve(process.cwd(), "node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs");
 PDFParse.setWorker(pathToFileURL(workerPath).href);
 
-export const runtime = 'nodejs';
-
 export async function POST(req: Request) {
     try {
         const formData = await req.formData();
