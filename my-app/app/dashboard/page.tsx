@@ -92,7 +92,15 @@ export default function Dashboard() {
                 body: JSON.stringify({ contractText: textToAnalyze }),
             });
 
-            const data = await res.json();
+            const rawText = await res.text();
+            let data;
+
+            try {
+                data = JSON.parse(rawText);
+            } catch (jsonError) {
+                console.error("Non-JSON Response:", rawText);
+                throw new Error(`Server Error (${res.status}): ${rawText.slice(0, 100)}...`);
+            }
 
             if (!res.ok) {
                 throw new Error(data.error || "Analysis failed");

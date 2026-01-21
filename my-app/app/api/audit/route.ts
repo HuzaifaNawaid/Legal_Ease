@@ -32,6 +32,13 @@ export async function POST(req: Request) {
     try {
         const { contractText } = await req.json();
 
+        if (!process.env.OPENROUTER_API_KEY) {
+            return NextResponse.json(
+                { error: "Server Configuration Error: Missing OPENROUTER_API_KEY" },
+                { status: 500 }
+            );
+        }
+
         if (!contractText) {
             return NextResponse.json(
                 { error: "Contract text is required" },
