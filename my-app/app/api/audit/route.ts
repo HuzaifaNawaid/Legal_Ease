@@ -40,7 +40,7 @@ export async function POST(req: Request) {
         }
 
         const completion = await openai.chat.completions.create({
-            model: "openai/gpt-oss-120b:free",
+            model: "mellama/llama-3.3-70b-instruct:free",
             messages: [
                 { role: "system", content: SYSTEM_PROMPT },
                 { role: "user", content: contractText },
