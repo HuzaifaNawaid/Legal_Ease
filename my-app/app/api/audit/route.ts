@@ -45,7 +45,7 @@ export async function POST(req: Request) {
                 { role: "system", content: SYSTEM_PROMPT },
                 { role: "user", content: contractText },
             ],
-            // response_format: { type: "json_object" }, // Removing this as it may cause 400 errors on some providers
+            response_format: { type: "json_object" }, 
         });
 
         const result = completion.choices[0].message.content;
