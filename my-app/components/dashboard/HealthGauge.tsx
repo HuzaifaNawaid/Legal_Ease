@@ -16,7 +16,7 @@ export function HealthGauge({ score }: { score: number }) {
     const strokeDashoffset = circumference - (score / 100) * circumference;
 
     return (
-        <div className="flex flex-col items-center justify-center p-4 bg-zinc-900 rounded-xl border border-zinc-800">
+        <div className="flex flex-col items-center justify-center p-4 bg-white/5 rounded-xl border border-white/10">
             <div className="relative w-32 h-32 flex items-center justify-center">
                 {/* Background Circle */}
                 <svg className="w-full h-full transform -rotate-90">

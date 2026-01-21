@@ -3,250 +3,274 @@
 import Link from "next/link";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { MoveRight, ShieldCheck, FileSearch, Zap, Building2, Briefcase, UserCheck, HelpCircle } from "lucide-react";
-import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
-import { useState, useRef } from "react";
-import { SpotlightCard } from "@/components/ui/SpotlightCard";
-import { CustomCursor } from "@/components/ui/CustomCursor";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const FAQS = [
   {
-    question: "Do you store my contracts?",
-    answer: "No. LegalEase runs statelessly. Your contracts are analyzed in real-time and then discarded. We do not train on your data."
+    question: "How secure is my data?",
+    answer: "We utilize industry-leading AES-256 encryption for data at rest and TLS for data in transit. Your documents are processed in isolated environments and are never used for general model training without explicit permission."
   },
   {
-    question: "Is this legal advice?",
-    answer: "LegalEase is an AI tool for information purposes only. It flags potential risks but does not replace a licensed attorney."
+    question: "Can I customize the AI's focus?",
+    answer: "Yes, our advanced scanning parameters allow you to prioritize specific risk categories such as liability, payment terms, or termination clauses."
   },
   {
-    question: "How accurate is the AI?",
-    answer: "We use Meta Llama 3.3 70B, one of the most capable open models. It is highly accurate at spotting standard clauses but always verify critical details."
+    question: "What document formats are supported?",
+    answer: "LegalEase currently supports DOCX and PDF formats, ensuring compatibility with standard legal documentation."
   },
   {
-    question: "Can I edit the contract?",
-    answer: "Yes! Use our Safe-Swap™ feature to copy revised clauses and paste them into your original document."
+    question: "Is there a free trial available?",
+    answer: "Absolutely! You can scan your first few contracts for free to experience the power of LegalEase AI."
   }
-];
-
-const DOMAINS = [
-  { icon: Building2, title: "Real Estate", desc: "Navigate every Lease and Purchase Agreement with certainty." },
-  { icon: Briefcase, title: "Startups/Businesses", desc: "Structure every Co-founder and Employment Agreement for success." },
-  { icon: UserCheck, title: "Freelancers/Content Creators", desc: "Turn every Service Contract and NDA to your advantage." },
 ];
 
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const containerRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
-  const scaleProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1 }
+      transition: { staggerChildren: 0.15 }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+      }
+    }
   };
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-zinc-950 text-zinc-50 font-sans flex flex-col selection:bg-indigo-500/30">
-      <CustomCursor />
-
-      {/* Scroll Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-indigo-500 origin-left z-[100]"
-        style={{ scaleX: scaleProgress }}
-      />
-
+    <div className="min-h-screen bg-black text-white font-sans flex flex-col selection:bg-[#df2531]/30">
       <Header />
 
       <main className="flex-1 flex flex-col">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 px-6 overflow-hidden">
-          {/* Animated Gradient Background */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/20 rounded-full blur-[120px] animate-pulse" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
-            <div className="absolute top-[20%] left-[50%] -translate-x-1/2 w-[60%] h-[60%] bg-indigo-500/10 rounded-full blur-[150px] animate-pulse" style={{ animationDelay: "2s" }} />
-          </div>
+        <section className="relative min-h-[90vh] pt-32 pb-20 flex flex-col items-center justify-center bg-mesh overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#df2531]/10 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
 
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="container mx-auto text-center relative z-10 max-w-4xl"
-          >
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium uppercase tracking-wider mb-8">
-              <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-              AI Auditor V1.0 Live
+          <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="lg:col-span-5 space-y-8 text-center lg:text-left"
+            >
+              <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#df2531]/10 border border-[#df2531]/20 text-[#df2531] text-xs font-bold uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#df2531] animate-pulse"></span>
+                AI Legal Intelligence
+              </motion.div>
+
+              <motion.h1 variants={itemVariants} className="text-6xl lg:text-8xl font-black leading-[1.05] tracking-tight text-white mb-6">
+                Analyze <br />
+                Contracts <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#df2531] to-rose-400">Instantly.</span>
+              </motion.h1>
+
+              <motion.p variants={itemVariants} className="text-lg text-gray-400 max-w-lg leading-relaxed mb-8">
+                Identify risks, compliance gaps, and critical clauses in seconds with our advanced neural scanning engine. Precise legal audit at the speed of light.
+              </motion.p>
+
+              <motion.div variants={itemVariants} className="flex items-center justify-center lg:justify-start">
+                <Link href="/dashboard" className="w-full sm:w-auto px-8 py-4 bg-[#df2531] text-white font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center justify-center gap-2">
+                  Start Free Audit
+                  <span className="material-icons-round text-sm">arrow_forward</span>
+                </Link>
+              </motion.div>
             </motion.div>
-
-            <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight">
-              Don't Sign What You <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400">
-                Don't Understand.
-              </span>
-            </motion.h1>
-
-            <motion.p variants={itemVariants} className="text-xl text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-              LegalEase is your personal AI legal counsel. We scan contracts for hidden risks,
-              detect missing clauses, and protect your privacy while doing it.
-            </motion.p>
-
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/dashboard"
-                className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-semibold text-lg transition-all shadow-xl shadow-indigo-600/20 flex items-center gap-2 group"
-              >
-                Scan A Contract Free
-                <MoveRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </motion.div>
-          </motion.div>
-        </section>
-
-        {/* Why Choose / Features Grid */}
-        <section id="features" className="py-24 bg-zinc-900/30 border-t border-zinc-800/50 relative overflow-hidden">
-          <div className="container mx-auto px-6 relative z-10">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4">Why Choose LegalEase?</h2>
-              <p className="text-zinc-400">State-of-the-art protection for modern creators.</p>
-            </div>
 
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="grid md:grid-cols-3 gap-8"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="lg:col-span-6 lg:col-start-7 relative flex items-center justify-center scale-90 lg:scale-100"
             >
-              <SpotlightCard className="p-6 rounded-2xl border-zinc-800">
-                <div className="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center mb-6">
-                  <FileSearch className="w-6 h-6 text-indigo-400" />
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-white">Deep Clause Scanning</h3>
-                <p className="text-zinc-400 leading-relaxed">
-                  Our scanning beam technology reads every line to detect liability traps,
-                  termination loopholes, and payment risks.
-                </p>
-              </SpotlightCard>
+              <div className="relative w-full max-w-lg group">
+                <div className="relative aspect-[16/10] bg-[#111] rounded-[2rem] border-8 border-[#1a1a1a] shadow-2xl overflow-hidden p-4">
+                  <div className="absolute top-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-gray-700"></div>
+                  <div className="w-full h-full bg-[#1a1a1a] rounded-xl overflow-hidden relative shadow-inner">
+                    {/* Mock Document Content */}
+                    <div className="p-8 space-y-4 opacity-20 pointer-events-none">
+                      <div className="h-4 w-1/3 bg-gray-700 rounded"></div>
+                      <div className="space-y-2">
+                        <div className="h-3 w-full bg-gray-800 rounded"></div>
+                        <div className="h-3 w-full bg-gray-800 rounded"></div>
+                        <div className="h-3 w-3/4 bg-gray-800 rounded"></div>
+                      </div>
+                      <div className="h-4 w-1/4 bg-gray-700 rounded pt-4"></div>
+                      <div className="space-y-2">
+                        <div className="h-3 w-full bg-gray-800 rounded"></div>
+                        <div className="h-3 w-5/6 bg-gray-800 rounded"></div>
+                        <div className="h-3 w-full bg-gray-800 rounded"></div>
+                      </div>
+                    </div>
 
-              <SpotlightCard className="p-6 rounded-2xl border-zinc-800">
-                <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-6">
-                  <ShieldCheck className="w-6 h-6 text-cyan-400" />
+                    {/* Scanning Overlay */}
+                    <div className="absolute inset-0 z-10">
+                      <div className="absolute left-0 right-0 h-0.5 bg-[#df2531]/80 shadow-[0_0_15px_#df2531] animate-scan-v"></div>
+                      <div className="absolute top-0 bottom-0 w-0.5 bg-[#df2531]/80 shadow-[0_0_15px_#df2531] animate-scan-h"></div>
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/5 backdrop-blur-md px-6 py-4 rounded-2xl flex flex-col items-center gap-3 border border-[#df2531]/30">
+                        <div className="flex items-center gap-3">
+                          <span className="flex gap-1">
+                            <span className="w-1.5 h-6 bg-[#df2531]/40 rounded-full animate-pulse"></span>
+                            <span className="w-1.5 h-8 bg-[#df2531]/70 rounded-full animate-pulse" style={{ animationDelay: "0.2s" }}></span>
+                            <span className="w-1.5 h-10 bg-[#df2531] rounded-full animate-pulse" style={{ animationDelay: "0.4s" }}></span>
+                          </span>
+                          <div className="text-sm font-bold tracking-widest uppercase">Scanning...</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-white">Privacy Shield</h3>
-                <p className="text-zinc-400 leading-relaxed">
-                  Concerned about data? Our "Anonymizer" redacts sensitive names,
-                  amounts, and dates BEFORE they leave your browser.
-                </p>
-              </SpotlightCard>
 
-              <SpotlightCard className="p-6 rounded-2xl border-zinc-800">
-                <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-6">
-                  <Zap className="w-6 h-6 text-emerald-400" />
+                <div className="relative -mt-1 mx-auto w-[105%] h-3 bg-[#0a0a0a] rounded-b-2xl shadow-xl"></div>
+
+                {/* Floating Cards */}
+                <div className="absolute -right-8 top-0 bg-white/5 backdrop-blur-xl p-4 rounded-2xl w-40 shadow-2xl z-20 border border-white/10">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[9px] font-bold uppercase tracking-widest text-gray-500">Risk Level</span>
+                  </div>
+                  <div className="relative w-20 h-20 mx-auto mb-3">
+                    <svg className="w-full h-full transform -rotate-90">
+                      <circle className="text-white/10" cx="40" cy="40" r="34" fill="transparent" stroke="currentColor" strokeWidth="6"></circle>
+                      <circle className="text-[#df2531] drop-shadow-[0_0_8px_rgba(223,37,49,0.5)]" cx="40" cy="40" r="34" fill="transparent" stroke="currentColor" strokeDasharray="213.5" strokeDashoffset="117" strokeWidth="6"></circle>
+                    </svg>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <span className="text-xl font-bold">45%</span>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-[10px] font-semibold text-white">Moderate Risk</p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-white">Missing Clause Detective</h3>
-                <p className="text-zinc-400 leading-relaxed">
-                  Most auditors only see what's written. We see what isn't.
-                  Identify missing Force Majeure or Confidentiality clauses instantly.
-                </p>
-              </SpotlightCard>
+
+                <div className="absolute -right-16 -bottom-6 bg-white/5 backdrop-blur-xl p-4 rounded-2xl w-48 shadow-2xl z-20 border border-white/10">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[9px] font-bold uppercase tracking-widest text-gray-500">Compliance</span>
+                  </div>
+                  <div className="flex items-end justify-between h-12 gap-1 mb-3 px-2">
+                    <div className="flex-1 bg-[#df2531]/20 rounded-t-sm h-[40%]"></div>
+                    <div className="flex-1 bg-[#df2531]/40 rounded-t-sm h-[60%]"></div>
+                    <div className="flex-1 bg-[#df2531]/60 rounded-t-sm h-[85%]"></div>
+                    <div className="flex-1 bg-[#df2531] rounded-t-sm h-[65%]"></div>
+                    <div className="flex-1 bg-[#df2531]/50 rounded-t-sm h-[50%]"></div>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-[10px] font-semibold text-white">65% Compliant</p>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </section>
 
-        {/* Domains Section - Who Uses LegalEase? */}
-        <section className="py-24 bg-zinc-950">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">Who Uses LegalEase?</h2>
-              <p className="text-zinc-400 max-w-2xl mx-auto">
-                From freelancers to founders, protect yourself in every transaction.
-              </p>
+        {/* Why Choose Section */}
+        <section id="features" className="py-24 bg-black">
+          <div className="max-w-7xl mx-auto px-6 text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Why Choose LegalEase</h2>
+            <div className="w-24 h-1 bg-[#df2531] mx-auto rounded-full"></div>
+          </div>
+          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-6">
+            <div className="glass-card p-8 rounded-2xl border-l-4 border-l-[#df2531] hover:translate-y-[-5px] transition-transform group">
+              <span className="material-symbols-outlined text-[#df2531] text-4xl mb-4">visibility</span>
+              <h3 className="text-xl font-bold mb-3">Deep Clause Scanning:</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">Uncover hidden risks with precision. Our AI identifies problematic language in seconds.</p>
             </div>
-            <div className="grid md:grid-cols-3 gap-6">
-              {DOMAINS.map((domain, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                  className="flex items-center gap-6 p-6 rounded-2xl bg-zinc-900/20 border border-zinc-800"
-                >
-                  <div className="w-14 h-14 rounded-full bg-zinc-900 flex items-center justify-center shrink-0">
-                    <domain.icon className="w-6 h-6 text-indigo-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white">{domain.title}</h3>
-                    <p className="text-sm text-zinc-500">{domain.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
+            <div className="glass-card p-8 rounded-2xl border-l-4 border-l-[#df2531] hover:translate-y-[-5px] transition-transform">
+              <span className="material-symbols-outlined text-[#df2531] text-4xl mb-4">admin_panel_settings</span>
+              <h3 className="text-xl font-bold mb-3">Privacy Shield:</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">Securely analyze sensitive documents. Your data remains encrypted and private.</p>
+            </div>
+            <div className="glass-card p-8 rounded-2xl border-l-4 border-l-[#df2531] hover:translate-y-[-5px] transition-transform">
+              <span className="material-symbols-outlined text-[#df2531] text-4xl mb-4">edit_note</span>
+              <h3 className="text-xl font-bold mb-3">Instant Redlining:</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">Accelerate your review process with automated drafting and versioning suggestions.</p>
+            </div>
+            <div className="glass-card p-8 rounded-2xl border-l-4 border-l-[#df2531] hover:translate-y-[-5px] transition-transform">
+              <span className="material-symbols-outlined text-[#df2531] text-4xl mb-4">query_stats</span>
+              <h3 className="text-xl font-bold mb-3">Smart Risk Assessment:</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">Data-driven legal intelligence provides a comprehensive overview of liability exposure.</p>
             </div>
           </div>
         </section>
 
-        {/* About & FAQ Grid */}
-        <section className="py-24 bg-zinc-950 border-t border-zinc-800/50">
-          <div className="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-start">
-            {/* How It Works / About */}
-            <div>
-              <h2 className="text-3xl font-bold mb-8">About LegalEase</h2>
-              <div className="space-y-6 text-zinc-400 leading-relaxed">
-                <p>
-                  LegalEase was born from a simple belief: <strong>Legal protection should not be a luxury.</strong>
-                  Traditional legal review is slow, expensive, and inaccessible to most freelancers and creators.
-                </p>
-                <p>
-                  We built an AI Agent that "thinks" like a lawyer but works at the speed of software.
-                  It parses complex legalese, identifies traps, and explains them in plain English.
-                </p>
-                <p>
-                  Our mission is to democratize legal safety. Whether you're signing a lease or an NDA,
-                  LegalEase ensures you never sign blindly again.
-                </p>
+        {/* Who Uses Section */}
+        <section id="solutions" className="py-24 bg-[#050505]">
+          <div className="max-w-7xl mx-auto px-6 text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Who Uses LegalEase</h2>
+          </div>
+          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+            <div className="bg-gradient-to-br from-[#df2531]/10 to-transparent p-10 rounded-3xl border border-[#df2531]/20 text-center hover:border-[#df2531] transition-all">
+              <div className="w-16 h-16 bg-[#df2531]/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="material-symbols-outlined text-[#df2531] text-3xl">business</span>
               </div>
+              <h3 className="text-2xl font-bold mb-4">Real Estate:</h3>
+              <p className="text-gray-400">Streamline property agreements and lease reviews effortlessly.</p>
             </div>
+            <div className="bg-gradient-to-br from-[#df2531]/10 to-transparent p-10 rounded-3xl border border-[#df2531]/20 text-center hover:border-[#df2531] transition-all">
+              <div className="w-16 h-16 bg-[#df2531]/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="material-symbols-outlined text-[#df2531] text-3xl">rocket_launch</span>
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Startups & Businesses:</h3>
+              <p className="text-gray-400">Automate vendor agreements and compliance to accelerate growth.</p>
+            </div>
+            <div className="bg-gradient-to-br from-[#df2531]/10 to-transparent p-10 rounded-3xl border border-[#df2531]/20 text-center hover:border-[#df2531] transition-all">
+              <div className="w-16 h-16 bg-[#df2531]/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="material-symbols-outlined text-[#df2531] text-3xl">person</span>
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Freelancers:</h3>
+              <p className="text-gray-400">Negotiate contracts with confidence and focus on your work.</p>
+            </div>
+          </div>
+        </section>
 
-            {/* FAQ */}
+        {/* About Section */}
+        <section id="about" className="py-24 bg-black">
+          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-8">Common Questions</h2>
+              <h2 className="text-4xl font-bold mb-6">About LegalEase:</h2>
+              <p className="text-lg text-gray-400 leading-relaxed mb-6">
+                Empowering legal professionals through Innovation. We combine advanced AI with human expertise to simplify complex legal processes. 
+              </p>
+              <p className="text-lg text-gray-400 leading-relaxed mb-6">
+                Traditional legal review is slow, expensive, and inaccessible. We built an AI Agent that "thinks" like a lawyer but works at the speed of software.
+              </p>
+              <p className="text-lg text-gray-400 leading-relaxed mb-6">
+                Our mission is to make high-quality legal review accessible and instantaneous for everyone.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold mb-8">Frequently Asked Questions</h3>
               <div className="space-y-4">
                 {FAQS.map((faq, i) => (
-                  <div key={i} className="border border-zinc-800 rounded-lg overflow-hidden bg-zinc-900/50">
+                  <div key={i} className="border-b border-white/10 pb-4">
                     <button
                       onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                      className="w-full flex items-center justify-between p-4 text-left font-medium text-zinc-200 hover:bg-zinc-800/50 transition-colors"
+                      className="flex items-center justify-between w-full py-4 text-left font-semibold text-lg hover:text-[#df2531] transition-colors"
                     >
-                      {faq.question}
-                      <HelpCircle className={cn("w-5 h-5 text-zinc-500 transition-transform", openFaq === i ? "rotate-180" : "")} />
+                      <span className="text-base">{faq.question}</span>
+                      <span className={`material-symbols-outlined transition-transform duration-300 ${openFaq === i ? "rotate-180" : ""}`}>
+                        expand_more
+                      </span>
                     </button>
                     <AnimatePresence>
                       {openFaq === i && (
                         <motion.div
-                          initial={{ height: 0 }}
-                          animate={{ height: "auto" }}
-                          exit={{ height: 0 }}
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
                           className="overflow-hidden"
                         >
-                          <div className="p-4 pt-0 text-zinc-400 text-sm leading-relaxed border-t border-zinc-800/50">
+                          <p className="text-gray-400 text-sm leading-relaxed mb-4">
                             {faq.answer}
-                          </div>
+                          </p>
                         </motion.div>
                       )}
                     </AnimatePresence>

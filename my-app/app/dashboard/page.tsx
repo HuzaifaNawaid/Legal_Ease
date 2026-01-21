@@ -113,16 +113,16 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-zinc-950 text-zinc-50 flex flex-col font-sans selection:bg-indigo-500/30">
+        <div className="min-h-screen bg-black text-white flex flex-col font-sans selection:bg-[#df2531]/30">
             <Header />
 
             <div className="flex-1 flex flex-col lg:flex-row overflow-hidden relative pt-16">
                 <ScannerOverlay isScanning={status === "scanning"} />
 
                 {/* LEFT: Input Area */}
-                <div className="flex-1 p-6 lg:border-r border-zinc-800 flex flex-col h-[60vh] lg:h-auto overflow-hidden">
+                <div className="flex-1 p-6 lg:border-r border-[#df2531]/20 flex flex-col h-[60vh] lg:h-auto overflow-hidden">
                     <div className="flex justify-between items-center mb-3">
-                        <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 flex items-center gap-2">
+                        <label className="text-xs font-semibold uppercase tracking-wider text-gray-500 flex items-center gap-2">
                             <Terminal className="w-4 h-4" /> Contract Content
                         </label>
 
@@ -133,7 +133,7 @@ export default function Dashboard() {
                                 "flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium transition-all border",
                                 privacyMode
                                     ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
-                                    : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-zinc-300"
+                                    : "bg-white/5 border-white/10 text-gray-400 hover:text-white"
                             )}
                         >
                             {privacyMode ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
@@ -146,7 +146,7 @@ export default function Dashboard() {
                         onChange={(e) => setText(e.target.value)}
                         disabled={status === "scanning"}
                         placeholder="Paste your legal contract here or import a file..."
-                        className="flex-1 bg-zinc-900/50 border border-zinc-800 rounded-xl p-6 text-sm font-mono leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-zinc-300 placeholder:text-zinc-700"
+                        className="flex-1 bg-white/5 border border-white/10 rounded-xl p-6 text-sm font-mono leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-[#df2531]/50 transition-all text-gray-300 placeholder:text-gray-700"
                     />
 
                     <div className="mt-4 flex justify-between items-center">
@@ -154,8 +154,8 @@ export default function Dashboard() {
                             <label className={cn(
                                 "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition-all border",
                                 isParsing
-                                    ? "bg-zinc-800 border-zinc-700 text-zinc-500 cursor-not-allowed"
-                                    : "bg-zinc-900 border-zinc-800 text-zinc-300 hover:bg-zinc-800 hover:text-white"
+                                    ? "bg-white/5 border-white/10 text-gray-500 cursor-not-allowed"
+                                    : "bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:text-white"
                             )}>
                                 {isParsing ? (
                                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -176,7 +176,7 @@ export default function Dashboard() {
                             <button
                                 onClick={() => startAnalysis()}
                                 disabled={status === "scanning" || !text.trim()}
-                                className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-all shadow-lg shadow-indigo-500/20 active:scale-95 text-sm"
+                                className="px-8 py-3 bg-[#df2531] hover:bg-[#df2531]/80 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-all shadow-lg shadow-[#df2531]/20 active:scale-95 text-sm"
                             >
                                 {status === "scanning" ? "AUDITING..." : "RUN AUDIT"}
                             </button>
@@ -185,7 +185,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* RIGHT: Results Area */}
-                <div className="flex-1 bg-zinc-950 overflow-y-auto relative scroll-smooth p-6 pb-20">
+                <div className="flex-1 bg-black overflow-y-auto relative scroll-smooth p-6 pb-20">
                     <AnimatePresence mode="wait">
                         {/* IDLE STATE */}
                         {status === "idle" && (
@@ -193,7 +193,7 @@ export default function Dashboard() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="h-full flex flex-col items-center justify-center text-zinc-600 space-y-4"
+                                className="h-full flex flex-col items-center justify-center text-gray-600 space-y-4"
                             >
                                 <Shield className="w-16 h-16 opacity-20" />
                                 <p>Ready to analyze. Paste a contract to begin.</p>
@@ -210,7 +210,7 @@ export default function Dashboard() {
                                 className="h-full flex flex-col items-center justify-center space-y-6"
                             >
                                 <div className="relative">
-                                    <div className="w-16 h-16 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+                                    <div className="w-16 h-16 border-4 border-[#df2531]/30 border-t-[#df2531] rounded-full animate-spin" />
                                 </div>
                                 <div className="h-6 overflow-hidden relative w-64 text-center">
                                     <AnimatePresence mode="wait">
@@ -219,7 +219,7 @@ export default function Dashboard() {
                                             initial={{ y: 20, opacity: 0 }}
                                             animate={{ y: 0, opacity: 1 }}
                                             exit={{ y: -20, opacity: 0 }}
-                                            className="text-indigo-400 font-mono text-sm absolute w-full"
+                                            className="text-[#df2531] font-mono text-sm absolute w-full"
                                         >
                                             {THOUGHTS[thoughtIndex]}
                                         </motion.p>
@@ -249,11 +249,11 @@ export default function Dashboard() {
                                 className="max-w-xl mx-auto space-y-8"
                             >
                                 {/* HUD Header */}
-                                <div className="flex items-center gap-6 mb-8 p-4 bg-zinc-900/50 rounded-xl border border-zinc-800">
+                                <div className="flex items-center gap-6 mb-8 p-4 bg-white/5 rounded-xl border border-white/10">
                                     <HealthGauge score={report.healthScore} />
                                     <div>
                                         <h2 className="text-2xl font-bold text-white mb-1">Audit Complete</h2>
-                                        <p className="text-zinc-400 text-sm">
+                                        <p className="text-gray-400 text-sm">
                                             Found <span className="text-red-400">{report.risk.length} Risks</span>,{" "}
                                             <span className="text-yellow-400">{report.review.length} Warnings</span>.
                                         </p>
@@ -262,20 +262,20 @@ export default function Dashboard() {
 
                                 {/* Missing Clauses (Ghost Detective) */}
                                 {report.missing && report.missing.length > 0 && (
-                                    <section className="bg-zinc-900/30 border border-zinc-800 rounded-xl p-5 relative overflow-hidden">
+                                    <section className="bg-white/5 border border-[#df2531]/20 rounded-xl p-5 relative overflow-hidden">
                                         <div className="absolute top-0 right-0 p-4 opacity-10">
-                                            <AlertCircle className="w-24 h-24 text-zinc-500" />
+                                            <AlertCircle className="w-24 h-24 text-gray-500" />
                                         </div>
-                                        <h3 className="text-zinc-400 font-bold mb-4 flex items-center gap-2 text-sm uppercase tracking-wider relative z-10">
-                                            <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" /> Missing Clause Detective
+                                        <h3 className="text-[#df2531] font-bold mb-4 flex items-center gap-2 text-sm uppercase tracking-wider relative z-10">
+                                            <span className="w-2 h-2 rounded-full bg-[#df2531] animate-pulse" /> Missing Clause Detective
                                         </h3>
-                                        <p className="text-zinc-500 text-sm mb-3 relative z-10">
+                                        <p className="text-gray-400 text-sm mb-3 relative z-10">
                                             We detected that this contract lacks the following standard protections:
                                         </p>
                                         <div className="space-y-2 relative z-10">
                                             {report.missing.map((clause, i) => (
-                                                <div key={i} className="flex items-start gap-2 text-indigo-300 text-sm font-medium">
-                                                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-indigo-500" />
+                                                <div key={i} className="flex items-start gap-2 text-[#df2531]/80 text-sm font-medium">
+                                                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-[#df2531]" />
                                                     {clause}
                                                 </div>
                                             ))}

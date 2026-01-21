@@ -77,14 +77,14 @@ export function ClauseCard({ item, type, delay }: ClauseCardProps) {
                     </div>
 
                     <div className="flex items-center gap-2 mt-3">
-                        <span className="text-xs font-medium text-zinc-500 uppercase tracking-wider">
+                        <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                             {showPlain ? "Plain English" : "Legal Summary"}
                         </span>
                         <button
                             onClick={() => setShowPlain(!showPlain)}
                             className={cn(
-                                "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2",
-                                showPlain ? "bg-indigo-600" : "bg-zinc-700"
+                                "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[#df2531] focus:ring-offset-2",
+                                showPlain ? "bg-[#df2531]" : "bg-white/10"
                             )}
                         >
                             <span
@@ -97,20 +97,20 @@ export function ClauseCard({ item, type, delay }: ClauseCardProps) {
                     </div>
 
                     {type === "risk" && item.fix && (
-                        <div className="mt-4 p-3 bg-zinc-950/50 rounded border border-indigo-500/20">
+                        <div className="mt-4 p-3 bg-white/5 rounded border border-[#df2531]/20">
                             <div className="flex justify-between items-center mb-2">
-                                <span className="text-indigo-400 text-xs font-bold uppercase tracking-wide flex items-center gap-1">
+                                <span className="text-[#df2531] text-xs font-bold uppercase tracking-wide flex items-center gap-1">
                                     Safe-Swap™ Revision
                                 </span>
                                 <button
                                     onClick={copyFix}
-                                    className="text-zinc-500 hover:text-white transition-colors flex items-center gap-1 text-xs"
+                                    className="text-gray-500 hover:text-white transition-colors flex items-center gap-1 text-xs"
                                 >
                                     {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                                     {copied ? "Copied" : "Copy"}
                                 </button>
                             </div>
-                            <p className="text-zinc-300 text-sm italic font-serif">
+                            <p className="text-gray-300 text-sm italic font-serif">
                                 "{item.fix}"
                             </p>
                         </div>

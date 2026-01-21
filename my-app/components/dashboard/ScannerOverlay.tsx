@@ -15,9 +15,9 @@ export function ScannerOverlay({ isScanning }: { isScanning: boolean }) {
                     duration: 2,
                     ease: "linear",
                 }}
-                className="absolute left-0 right-0 h-1 bg-cyan-500 shadow-[0_0_20px_4px_rgba(6,182,212,0.5)]"
+                className="absolute left-0 right-0 h-1 bg-[#df2531] shadow-[0_0_20px_4px_rgba(223,37,49,0.5)]"
             />
-            <div className="absolute inset-0 bg-cyan-500/5 mix-blend-overlay" />
+            <div className="absolute inset-0 bg-[#df2531]/5 mix-blend-overlay" />
         </div>
     );
 }
