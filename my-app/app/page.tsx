@@ -237,7 +237,7 @@ export default function LandingPage() {
             <div>
               <h2 className="text-4xl font-bold mb-6">About LegalEase:</h2>
               <p className="text-lg text-gray-400 leading-relaxed mb-6">
-                Empowering legal professionals through Innovation. We combine advanced AI with human expertise to simplify complex legal processes. 
+                Empowering legal professionals through Innovation. We combine advanced AI with human expertise to simplify complex legal processes.
               </p>
               <p className="text-lg text-gray-400 leading-relaxed mb-6">
                 Traditional legal review is slow, expensive, and inaccessible. We built an AI Agent that "thinks" like a lawyer but works at the speed of software.
