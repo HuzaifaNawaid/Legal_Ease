@@ -65,6 +65,7 @@ export default function Dashboard() {
         }
     };
 
+
     const startAnalysis = async (overriddenText?: string) => {
         const textToProcess = overriddenText || text;
         if (!textToProcess.trim()) return;
