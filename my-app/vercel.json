@@ -1,0 +1,13 @@
+{
+    "functions": {
+        "api/parse.func": {
+            "memory": 1024,
+            "maxDuration": 30
+        },
+        "api/audit.func": {
+            "memory": 512,
+            "maxDuration": 60
+        }
+    },
+    "maxDuration": 60
+}

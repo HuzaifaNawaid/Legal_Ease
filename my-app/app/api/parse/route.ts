@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
 import mammoth from "mammoth";
 import { PDFParse } from "pdf-parse";
-import path from "path";
-import { pathToFileURL } from "url";
 
-// Set the worker source for pdf-parse to avoid "Cannot find module" errors in Next.js
-// On Windows, absolute paths must be converted to file:// URLs for ESM
-const workerPath = path.resolve(process.cwd(), "node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs");
-PDFParse.setWorker(pathToFileURL(workerPath).href);
+// Use Node.js runtime for serverless functions (required for pdf-parse and mammoth)
+export const runtime = "nodejs";
+// Increase max execution time for file processing (in seconds)
+export const maxDuration = 30;
 
 export async function POST(req: Request) {
     try {
